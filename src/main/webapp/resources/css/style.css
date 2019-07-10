@@ -1,0 +1,257 @@
+body {
+	background-color: white;
+}
+
+h2 {
+	color: rgb(26, 183, 234);
+	font-family: Arial, sans-serif;
+	font-size: 2em;
+	margin-top: 40px;
+	margin-left: 40px;
+	text-transform: capitalize;
+	text-shadow: gray;
+}
+
+.mainPageGrid tr, .mainPageGrid.ui-panelgrid .ui-panelgrid-cell {
+	border: none;
+	box-shadow: none;
+	
+}
+
+/* This is for dataTable */
+.ui-datatable.employeeTable .ui-datatable-data tr, .ui-datatable.employeeTable .ui-datatable-data-empty tr,
+	.ui-datatable.employeeTable .ui-datatable-data td, .ui-datatable.employeeTable .ui-datatable-data-empty td
+	{
+	border: none;
+}
+
+/* this is for paginator under dataTable */
+.ui-widget-header {
+	background: none;
+	border: none;
+	background-color: #f2f5f9;
+}
+
+/* to remove border of dataTable  */
+.ui-widget-content {
+	border: none
+}
+
+/* this is for the row dataTable title */
+.row .dataPanelGrid {
+	width: 100%;
+	background-color: rgb(26, 183, 234);
+	color: white;
+	font-family: Arial, sans-serif;
+	font-size: 2em;
+	background-position: center;
+/* 	align: center; */
+	text-shadow: gray;
+	height: 60px;
+}
+
+.dataTabletitle {
+	font-weight: bold;
+	color: white;
+	margin-left: 20px;
+	
+}
+
+.employeeTable th {
+	height: 40px;
+	vertical-align: middle;
+	text-shadow: none;
+	font-weight: 480;
+	font-size: 22px;
+	color: rgb(26, 183, 234);
+	background: none;
+	border-spacing: 0px;
+	border-color: white;
+	text-align: center;
+}
+
+.ui-datatable-even {
+	background: none repeat scroll 0 0 #f2f5f9;
+}
+
+.ui-datatable-odd {
+	background: none;
+}
+
+/* this is for the icons delete and edit in dataTable */
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only
+	{
+	background: none;
+	background-position: center;
+	background-color: inherit;
+	border: none;
+	border-color: none;
+	text-shadow: none;
+	box-shadow: none;
+}
+
+.ui-state-default.headerColoumn{
+	text-align: left;
+}
+
+
+/* the div container contains one div and one dataTable */
+.container {
+	margin: 70px auto;
+    max-width: 1500px;
+    max-height: 900px;
+}
+
+/* this is for the New Employee Button  */
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.newEmpBtn
+	{
+	border: white;
+	margin-left: 0px;
+	font-size: 15px;
+	background: none;
+	background-position: right;
+	box-sizing: border-box;
+	width: 160px;
+	height: 30px;
+	text-align: left;
+	background-color: #ffffff;
+	float: right;
+}
+
+.mainPageGrid {
+	width: 350px;
+	align-items: center;
+	float: center;
+}
+
+
+
+
+/*  This is to clear input text box showdow in dialog*/
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+	box-shadow: none;
+}
+
+/* this is dialog title bar */
+.ui-dialog .ui-dialog-titlebar {
+
+	background-color: rgb(26, 183, 234);
+	color: white;
+	text-shadow: none;
+	font-size: 22px;
+}
+
+/* this is div two buttons in dialog */
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.btnCancelSave
+	{
+	border: white;
+	font-size: 15px;
+	box-sizing: border-box;
+	height: 30px;
+	text-align: left;
+	background: none;
+	background-color: #f2f5f9;
+	text-shadow: none;
+}
+
+/* this is div two buttons in dialog */
+.cancelAndSave {
+	float: right;
+	margin-right: 12px;
+}
+
+#idForDialog .ui-icon-closethick{
+	background-image: url(/demo/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-aristo);
+}
+
+#idForUpdateDialog .ui-icon-closethick{
+	background-image: url(/demo/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-aristo);
+}
+
+/* this is to show the validation error with red text box in Add dialog*/
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error
+	{
+	border: 2px solid #cd0a0a;
+}
+
+/* this is for the select menu list color in Add and Update dialog */
+.ui-selectonemenu-panel .ui-selectonemenu-list-item{
+	text-shadow: none;
+	color: #4f4f4f;
+	background: none;
+}
+/* this is for the select menu highlight */
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+	
+	background: rgb(68, 195, 238);
+}
+
+.input:-internal-autofill-selected {
+	background-color: black;
+
+	}
+ 
+     
+/* this is for text in button  */
+.ui-button-text.ui-c {
+	color: rgb(26, 183, 234);
+	text-shadow: none;
+}
+.white-color{
+	color: white;
+}
+
+.updateDialog td.ui-panelgrid-cell {
+    padding: 4px 20px 4px 10px;
+}  
+
+.updatePageGrid tr, .updatePageGrid td, .updatePageGrid.ui-panelgrid .ui-panelgrid-cell
+	{
+	border: none;
+}
+
+.updatePageGrid {
+    width: 100%;
+}
+
+/* this is for text box width in dialog */
+.width-100 {
+	width: 100%;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	background: none;
+	background-color: none;
+}
+
+
+.width-92 {
+	min-width: 92%;
+}
+
+.red-icon {
+	color: red;
+}
+
+.orange-icon {
+	color: #d98d00;
+}
+
+.blue-icon {
+	color: rgb(26, 183, 234);
+}
+
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 3%;
+  padding-top: 15px;
+  width: 100%;
+  background-color: #f2f5f9;
+  color: black;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  background-position: center;
+  text-align: center;
+}

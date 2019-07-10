@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>CRUD DEMO</title>
+	<link rel="shortcut icon" href="favicon.ico"></link>
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="fontawesome.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+
+	<h:form id="listOfEmp">
+
+		<div class="container">
+			<div class="row">
+				<h:panelGrid styleClass="dataPanelGrid" columns="2" cellpadding="5">
+					<h:outputText value="Manage Employee" styleClass="dataTabletitle" />
+					<p:commandButton id="addBtn" icon="fa fa-plus-circle blue-icon"
+						value="New Employee" onclick="PF('addEmployee').show();"
+						styleClass="newEmpBtn" />
+				</h:panelGrid>
+			</div>
+			<p:dataTable id="empData" value="#{webHandler.employeeList}"
+				var="emp" reflow="true" rows="10" paginatorPosition="bottom"
+				paginator="true" styleClass="employeeTable"
+				headerClass="employeeTableHeader"
+				rowClasses="employeeTableOddRow,employeeTableEvenRow">
+
+				<p:column styleClass="headerColoumn">
+					<f:facet name="header">Employee ID</f:facet>
+				#{emp.id}
+			</p:column>
+
+				<p:column styleClass="headerColoumn">
+					<f:facet name="header">Name</f:facet>
+				#{emp.name}
+			</p:column>
+
+				<p:column styleClass="headerColoumn">
+					<f:facet name="header">Age</f:facet>
+				#{emp.age}
+			</p:column>
+
+				<p:column styleClass="headerColoumn">
+					<f:facet name="header">Email</f:facet>
+				#{emp.email}
+			</p:column>
+
+				<p:column styleClass="headerColoumn">
+					<f:facet name="header">Deparment</f:facet>
+				#{emp.department.name}
+			</p:column>
+
+				<p:column styleClass="headerColoumn">
+					<f:facet name="header">Actions</f:facet>
+					<p:commandButton icon="fa fa-trash red-icon" title="Delete"
+						update="empData" style="width: 60px"
+						action="#{webHandler.deleteEmployeeFromPage(emp)}">
+						<p:confirm header="Confirmation" message="Are you sure to delete?"
+							icon="fa fa-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<div class="cancelAndSave">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+						</div>
+					</p:confirmDialog>
+
+					<p:commandButton icon="fa fa-edit orange-icon" title="Edit"
+						update=":updateform" style="width: 60px" 
+						action="#{webHandler.viewEmployee(emp)}">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</div>
+	</h:form>
+
+	<!-- dialog for Add New Employee -->
+
+
+	<p:dialog header="Add New Employee" widgetVar="addEmployee"
+		styleClass="dialogAddNewEmp" width="400px" id="idForDialog">
+		<h:form id="emform">
+
+			<p:panelGrid styleClass="mainPageGrid" columns="1">
+
+				<p:outputLabel for="name" value="Name:" />
+				<p:inputText styleClass="width-100" id="name"
+					value="#{webHandler.employee.name}" required="true"
+					requiredMessage="" validatorMessage="Please enter a valid name.">
+					<f:validateRegex pattern="^[A-Za-z\s]{1,}[A-Za-z\s]{0,}$" />
+				</p:inputText>
+				<h:message for="name" style="color:red" />
+
+				<p:outputLabel for="age" value="Age:" />
+				<p:inputText id="age" value="#{webHandler.employee.age}"
+					required="true" label="age" styleClass="width-100"
+					requiredMessage="" converterMessage="Age must be a number."
+					validatorMessage="Age must between 18 and 45.">
+					<f:validateLongRange minimum="18" maximum="45" />
+				</p:inputText>
+				<h:message for="age" style="color:red" />
+
+				<p:outputLabel for="email" value="Email:" />
+				<p:inputText id="email" value="#{webHandler.employee.email}"
+					requiredMessage="" styleClass="width-100" size="20" required="true"
+					label="email" validatorMessage="Please enter a valid message.">
+					<f:validateRegex
+						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</p:inputText>
+				<h:message for="email" style="color:red" />
+
+				<p:outputLabel for="department" value="Department" />
+				<p:selectOneMenu id="department" value="#{webHandler.department.id}"
+					styleClass="width-92" required="true"
+					valueChangeListener="#{webHandler.changeDepartment}">
+					<f:selectItems value="#{webHandler.departmentList}" var="_dept"
+						itemValue="#{_dept.id}" itemLabel="#{_dept.name}" />
+				</p:selectOneMenu>
+
+			</p:panelGrid>
+
+			<div class="cancelAndSave">
+				<p:commandButton value="Cancel" icon="fa fa-times"
+					styleClass="btnCancelSave" onclick="PF('addEmployee').hide();" />
+
+				<p:commandButton styleClass="btnCancelSave" icon="fa fa-save"
+					action="#{webHandler.addNewEmployee}" update="emform :listOfEmp"
+					process="@form" value="Save" />
+			</div>
+		</h:form>
+	</p:dialog>
+
+
+	<!--  dialog for Edit (update) Employee -->
+	<p:dialog header="Update Employee" widgetVar="UpdateEmployee"
+		styleClass="updateDialog" width="400px" id="idForUpdateDialog">
+		<h:form id="updateform">
+
+			<p:panelGrid styleClass="updatePageGrid" id="grid" columns="1">
+
+				<p:outputLabel for="name" value="Name:" />
+				<p:inputText id="name" value="#{webHandler.employee.name}"
+					required="true" label="name" requiredMessage=""
+					validatorMessage="Please enter a valid name."
+					styleClass="width-100">
+					<f:validateRegex pattern="^[A-Za-z\s]{1,}[A-Za-z\s]{0,}$" />
+				</p:inputText>
+				<h:message for="name" style="color:red" />
+
+				<p:outputLabel for="age" value="Age:" />
+				<p:inputText id="age" value="#{webHandler.employee.age}"
+					required="true" label="age" styleClass="width-100"
+					converterMessage="Age must be a number." requiredMessage=""
+					validatorMessage="Age must be between 18 and 45.">
+					<f:validateLongRange minimum="18" maximum="45" />
+				</p:inputText>
+				<h:message for="age" style="color:red" />
+
+				<p:outputLabel for="email" value="Email:" />
+				<p:inputText id="email" value="#{webHandler.employee.email}"
+					requiredMessage="" size="20" required="true" label="email"
+					styleClass="width-100" validatorMessage="Email is invalid.">
+					<f:validateRegex
+						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</p:inputText>
+				<h:message for="email" style="color:red" />
+
+				<p:outputLabel for="department" value="Department" />
+				<p:selectOneMenu id="department" value="#{webHandler.id}"
+					valueChangeListener="#{webHandler.changeDepartment}"
+					styleClass="width-92" required="true">
+					<f:selectItems value="#{webHandler.departmentList}" var="_dept"
+						itemValue="#{_dept.id}" itemLabel="#{_dept.name}" />
+				</p:selectOneMenu>
+				<h:message for="department" style="color:red" />
+			</p:panelGrid>
+			<div class="cancelAndSave">
+				<p:commandButton value="Cancel" icon="fa fa-times"
+					styleClass="btnCancelSave" onclick="PF('UpdateEmployee').hide();" />
+
+				<p:commandButton value="Update" icon="fa fa-edit"
+					styleClass="btnCancelSave"
+					action="#{webHandler.updateEmployeeFromPage}"
+					update="updateform :listOfEmp" process="@form" />
+			</div>
+		</h:form>
+	</p:dialog>
+
+	<div class="footer">
+		<p:outputLabel value="&copy; CRUD Demo Project by Amigo Team" />
+	</div>
+</h:body>
+</html>
