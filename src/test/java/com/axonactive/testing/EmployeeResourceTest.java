@@ -38,17 +38,18 @@ public class EmployeeResourceTest {
 	EmployeeService employeeService;
 	
 	
+	
 	@Test
 	public void testGetEmployeeById_ShouldReturnEntity_WhenValidEmployeeIdIsGiven() {
-		EmployeeDTO employee = createEmployeeDTO();
+		//EmployeeDTO employee = createEmployeeDTO();
 		
 		Mockito.when(employeeService.findEmployeeById(1)).thenReturn(createEmployeeEntity());
 		Mockito.when(employeeConverter.toDTO(employeeService.findEmployeeById(1))).thenReturn(createEmployeeDTO());
 		
 		
 		Response actual = employeeResource.getEmployeeById("1");
-		assertEquals(200, actual.getStatus());
-		assertEquals(employee,actual.getEntity());
+		assertEquals(200, actual.getStatus()); 
+		assertEquals(createEmployeeDTO(),actual.getEntity());
 	}
 	
 
